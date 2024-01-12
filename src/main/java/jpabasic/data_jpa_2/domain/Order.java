@@ -49,15 +49,7 @@ public class Order {
 //  문제 발생 및 코드 수정을 해야하는 등. 유지 보수 및 직관성이 떨어지기 때문에
 //  특별한 경우가 아니고서는 STRING으로 사용하는 것이 맞다.
   @Enumerated(EnumType.STRING)
-  private OrderStatus orderStatus; //주문 상태 [ORDER, CANCEL]
-
-  public Order(long l) {
-    this.id = l;
-  }
-
-  public Order() {
-
-  }
+  private OrderStatus Status; //주문 상태 [ORDER, CANCEL]
 
   public void setMember(Member member) {
     this.member = member;
@@ -74,5 +66,48 @@ public class Order {
   public void setDelivery(Delivery delivery) {
     this.delivery = delivery;
     delivery.setOrder(this);
+  }
+
+  //생셩 메서드
+  public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+    Order order = new Order();
+    order.setMember(member);
+    order.setDelivery(delivery);
+    for (OrderItem orderItem : orderItems) {
+      order.addOrderItem(orderItem);
+    }
+
+    order.setStatus(OrderStatus.ORDER);
+    order.setOrderDate(LocalDateTime.now());
+    return order;
+  }
+
+  //비지니스 로직
+  /**
+   * 주문 취소
+   */
+  public void cancle() {
+    if(delivery.getStatus() == DeliveryStatus.COMP) {
+      throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+    }
+
+    this.setStatus(OrderStatus.CANCEL);
+    for (OrderItem orderItem : this.orderItems) {
+      orderItem.cancel();
+    }
+  }
+
+//  조회 로직
+  /**
+   * 전체 주문 가격
+   */
+  public int getTotalPrice() {
+    int totalPrice = 0;
+
+    for (OrderItem orderItem : orderItems) {
+      totalPrice += orderItem.getTotalPrice();
+    }
+
+    return totalPrice;
   }
 }

@@ -39,7 +39,7 @@ public class Member {
     this.name = name;
   }
 
-  public Member() {
-
+  public Member(String moon) {
+    this.name = moon;
   }
 }
