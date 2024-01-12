@@ -4,7 +4,6 @@ import jakarta.persistence.EntityManager;
 import jpabasic.data_jpa_2.domain.*;
 import jpabasic.data_jpa_2.exception.NotEnoughStockException;
 import jpabasic.data_jpa_2.repository.OrderRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,10 +43,23 @@ class OrderServiceTest {
   @Test
   public void 주문취소() throws Exception {
     //given
+    Member member = createMember("회원1");
+    Item item = createBook("JPA", 20000, 10);
+
+    int orderCount = 2;
+
+    Long orderId = orderService.order(member.getId(), item.getId(), orderCount);
 
     //when
+    orderService.cancelOrder(orderId);
 
     //then
+    Order getOrder = orderRepository.findOne(orderId);
+
+    assertEquals(OrderStatus.CANCEL, getOrder.getStatus(), "주문 취소시 상태가 CANCEL인가.");
+    assertEquals(10, item.getStockQuantity(), "주문 취소한 상품에 대해서 재고가 돌아왔는가.");
+
+
   }
   @Test
   public void 상품주문_재고수량초과() throws Exception {
@@ -55,11 +67,9 @@ class OrderServiceTest {
     Member member = createMember("회원1");
     Item item = createBook("JPA", 20000, 10);
 
-    int orderCount = 1;
+    int orderCount = 11;
 
-    //when
-
-    //then
+    //when, then
     assertThrows(NotEnoughStockException.class, () -> {
       orderService.order(member.getId(), item.getId(), orderCount);
     });

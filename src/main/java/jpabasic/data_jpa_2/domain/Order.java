@@ -49,7 +49,7 @@ public class Order {
 //  문제 발생 및 코드 수정을 해야하는 등. 유지 보수 및 직관성이 떨어지기 때문에
 //  특별한 경우가 아니고서는 STRING으로 사용하는 것이 맞다.
   @Enumerated(EnumType.STRING)
-  private OrderStatus Status; //주문 상태 [ORDER, CANCEL]
+  private OrderStatus status; //주문 상태 [ORDER, CANCEL]
 
   public void setMember(Member member) {
     this.member = member;

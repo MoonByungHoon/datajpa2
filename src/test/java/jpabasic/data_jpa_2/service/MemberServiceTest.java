@@ -36,15 +36,10 @@ class MemberServiceTest {
     Member member1 = new Member("Kim");
     Member member2 = new Member("Kim");
 
-    //when
+    //when, then
     memberService.join(member1);
     assertThrows(IllegalStateException.class, () -> {
       memberService.join(member2);
     });
-
-    //then
-//    예외가 발생하지 않으면 아래 fail이 동작하고
-//    assert에서 제공하는 fail에 의해서 강제로 에러가 발생한다.
-      fail("예외가 발생해야 한다.");
   }
 }
