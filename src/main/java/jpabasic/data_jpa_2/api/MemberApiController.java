@@ -1,12 +1,19 @@
 package jpabasic.data_jpa_2.api;
 
+import jakarta.persistence.EntityManager;
 import jakarta.validation.Valid;
+import jpabasic.data_jpa_2.controller.AddressDTO;
+import jpabasic.data_jpa_2.controller.MemberForm;
+import jpabasic.data_jpa_2.domain.Address;
 import jpabasic.data_jpa_2.domain.Member;
 import jpabasic.data_jpa_2.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
- import org.springframework.web.bind.annotation.*;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +24,7 @@ import java.util.stream.Collectors;
 public class MemberApiController {
 
   private final MemberService memberService;
+  private final EntityManager em;
 
   @GetMapping("/api/v1/members")
   public List<Member> membersV1() {
