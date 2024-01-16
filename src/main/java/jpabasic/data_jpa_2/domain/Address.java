@@ -1,9 +1,11 @@
 package jpabasic.data_jpa_2.domain;
 
 import jakarta.persistence.Embeddable;
+import jpabasic.data_jpa_2.controller.MemberForm;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Embeddable
 @Getter

@@ -41,6 +41,11 @@ public class Member {
     this.name = name;
   }
 
+  public Member(String name, Address address) {
+    this.name = name;
+    this.address = address;
+  }
+
   public Member(String moon) {
     this.name = moon;
   }
