@@ -1,5 +1,7 @@
 package jpabasic.data_jpa_2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +35,7 @@ public class Member {
 //  Member는 Order와 일대다 관계를 형성하고 있다.
 //  mappedBy를 설정해줌으로 인해서 Member에서도 order를 조회 가능하게 되었다.
 //  포랜키 관리는 Order가 하게되는 구조이다.
+  @JsonIgnore
   @OneToMany(mappedBy = "member")
   private List<Order> orders = new ArrayList<>();
 
