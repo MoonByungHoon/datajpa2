@@ -2,8 +2,8 @@ package jpabasic.data_jpa_2.service;
 
 import jpabasic.data_jpa_2.domain.Member;
 import jpabasic.data_jpa_2.repository.MemberRepository;
+import jpabasic.data_jpa_2.repository.MemberRepositoryOld;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,11 +47,11 @@ public class MemberService {
   }
 
   public Member findOne(Long memberId) {
-    return memberRepository.findOne(memberId);
+    return memberRepository.findById(memberId).get();
   }
 
   @Transactional
   public void update(Long id, String name) {
-    memberRepository.findOne(id).setName(name);
+    memberRepository.findById(id).get().setName(name);
   }
 }

@@ -2,7 +2,7 @@ package jpabasic.data_jpa_2.service;
 
 import jpabasic.data_jpa_2.domain.*;
 import jpabasic.data_jpa_2.repository.ItemRepository;
-import jpabasic.data_jpa_2.repository.MemberRepository;
+import jpabasic.data_jpa_2.repository.MemberRepositoryOld;
 import jpabasic.data_jpa_2.repository.OrderRepository;
 import jpabasic.data_jpa_2.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 public class OrderService {
 
   private final OrderRepository orderRepository;
-  private final MemberRepository memberRepository;
+  private final MemberRepositoryOld memberRepository;
   private final ItemRepository itemRepository;
 
 //  주문
